@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CollectionTestSuite {
+
+    private OddNumbersExterminator toTransform = new OddNumbersExterminator();
+
     @BeforeEach
     public void before() {
         System.out.println("Test Case: begin");
@@ -35,8 +38,7 @@ public class CollectionTestSuite {
         //Given
         List<Integer> numbers = new ArrayList<>();
         //When
-        OddNumbersExterminator theList = new OddNumbersExterminator();
-        List<Integer> result = theList.exterminate(numbers);
+        List<Integer> result = toTransform.exterminate(numbers);
         System.out.println("Testing " + numbers);
         List<Integer> expected = new ArrayList<>();
         //Then
@@ -53,8 +55,7 @@ public class CollectionTestSuite {
         Integer[] set = new Integer[]{1,2,3,4,5,6,7};
         List<Integer> numbers = Arrays.asList(set);
         //When
-        OddNumbersExterminator theList = new OddNumbersExterminator();
-        List<Integer> result = theList.exterminate(numbers);
+        List<Integer> result = toTransform.exterminate(numbers);
         System.out.println("Testing " + numbers);
         List<Integer> expected = new ArrayList<>(List.of(2, 4, 6));
         //Then
