@@ -50,13 +50,13 @@ public class CollectionTestSuite {
     @Test
     void testOddNumbersExterminatorNormalList() {
         //Given
-        Integer set[] = new Integer[]{1,2,3,4,5,6,7};
+        Integer[] set = new Integer[]{1,2,3,4,5,6,7};
         List<Integer> numbers = Arrays.asList(set);
         //When
         OddNumbersExterminator theList = new OddNumbersExterminator();
         List<Integer> result = theList.exterminate(numbers);
         System.out.println("Testing " + numbers);
-        List<Integer> expected = new ArrayList<Integer>(List.of(2, 4, 6));
+        List<Integer> expected = new ArrayList<>(List.of(2, 4, 6));
         //Then
         Assertions.assertEquals(expected, result);
     }
