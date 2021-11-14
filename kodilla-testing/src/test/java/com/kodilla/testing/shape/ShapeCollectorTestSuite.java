@@ -78,7 +78,7 @@ public class ShapeCollectorTestSuite {
             shapeCollector4.addFigure(square);
             shapeCollector4.addFigure(circle);
             //When
-            String retrievedShowFigures = "Square: redSquare, field: 4; Circle: bigCircle, field: 3.14";
+            String retrievedShowFigures = "Square: redSquare, Circle: bigCircle, ";
             String result = shapeCollector4.showFigures();
             //Then
             assertEquals(retrievedShowFigures, result);
