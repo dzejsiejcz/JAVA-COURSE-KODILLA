@@ -7,12 +7,14 @@ public class ShapeCollector {
 
     private List<Shape> shapes = new ArrayList<>();
 
-    public void addFigure(Shape shape) {
+    public boolean addFigure(Shape shape) {
       // to do
+        return false;
     }
 
-    public void removeFigure(Shape shape) {
+    public boolean removeFigure(Shape shape) {
         // to do
+        return false;
     }
 
     public Shape getFigure(int n) {

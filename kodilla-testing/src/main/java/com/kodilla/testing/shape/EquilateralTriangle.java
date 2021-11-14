@@ -1,10 +1,12 @@
 package com.kodilla.testing.shape;
 
-public class Square implements Shape {
+import static java.lang.Math.sqrt;
+
+public class EquilateralTriangle implements Shape{
 
     private String name;
 
-    public Square(String name) {
+    public EquilateralTriangle(String name) {
         this.name = name;
     }
 
@@ -15,6 +17,6 @@ public class Square implements Shape {
 
     @Override
     public double getField(double a) {
-        return a*a;
+        return a * sqrt(3) / 4;
     }
 }
