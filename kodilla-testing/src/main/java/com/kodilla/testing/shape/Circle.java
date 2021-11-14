@@ -3,9 +3,11 @@ package com.kodilla.testing.shape;
 public class Circle implements Shape{
 
     private String name;
+    private double dimmension;
 
-    public Circle(String name) {
+    public Circle(String name, double dimmension) {
         this.name = name;
+        this.dimmension = dimmension;
     }
 
     @Override
@@ -14,7 +16,7 @@ public class Circle implements Shape{
     }
 
     @Override
-    public double getField(double r) {
-        return r*r*Math.PI;
+    public double getField() {
+        return dimmension*dimmension*Math.PI;
     }
 }

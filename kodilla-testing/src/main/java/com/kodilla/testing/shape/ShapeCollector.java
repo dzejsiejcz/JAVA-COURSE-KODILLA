@@ -8,7 +8,7 @@ public class ShapeCollector {
     private List<Shape> shapes = new ArrayList<>();
 
     public boolean addFigure(Shape shape) {
-      // to do
+
         return false;
     }
 

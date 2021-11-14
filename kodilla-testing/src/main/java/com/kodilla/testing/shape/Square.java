@@ -3,9 +3,11 @@ package com.kodilla.testing.shape;
 public class Square implements Shape {
 
     private String name;
+    private double dimmension;
 
-    public Square(String name) {
+    public Square(String name, double dimmension) {
         this.name = name;
+        this.dimmension = dimmension;
     }
 
     @Override
@@ -14,7 +16,7 @@ public class Square implements Shape {
     }
 
     @Override
-    public double getField(double a) {
-        return a*a;
+    public double getField() {
+        return dimmension*dimmension;
     }
 }

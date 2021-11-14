@@ -5,9 +5,11 @@ import static java.lang.Math.sqrt;
 public class EquilateralTriangle implements Shape{
 
     private String name;
+    private double dimmension;
 
-    public EquilateralTriangle(String name) {
+    public EquilateralTriangle(String name, double dimmension) {
         this.name = name;
+        this.dimmension = dimmension;
     }
 
     @Override
@@ -16,7 +18,7 @@ public class EquilateralTriangle implements Shape{
     }
 
     @Override
-    public double getField(double a) {
-        return a * sqrt(3) / 4;
+    public double getField() {
+        return dimmension * sqrt(3) / 4;
     }
 }

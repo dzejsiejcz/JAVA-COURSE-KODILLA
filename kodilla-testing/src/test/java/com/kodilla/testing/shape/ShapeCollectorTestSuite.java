@@ -31,7 +31,7 @@ public class ShapeCollectorTestSuite {
         void testAddFigure() {
             //Given
             ShapeCollector shapeCollector1 = new ShapeCollector();
-            Shape triangle = new EquilateralTriangle("blackTriangle");
+            Shape triangle = new EquilateralTriangle("blackTriangle", 5.5);
             //When
             boolean result = shapeCollector1.addFigure(triangle);
             //Then
@@ -42,7 +42,7 @@ public class ShapeCollectorTestSuite {
         void testRemoveFigure() {
             //Given
             ShapeCollector shapeCollector2 = new ShapeCollector();
-            Shape square = new Square("redSquare");
+            Shape square = new Square("redSquare", 6);
             shapeCollector2.addFigure(square);
             //When
             boolean result = shapeCollector2.removeFigure(square);
@@ -58,8 +58,8 @@ public class ShapeCollectorTestSuite {
         void  testGetFigure(){
             //Given
             ShapeCollector shapeCollector3 = new ShapeCollector();
-            Shape square = new Square("redSquare");
-            Shape circle = new Circle("bigCircle");
+            Shape square = new Square("redSquare", 4);
+            Shape circle = new Circle("bigCircle", 2);
             shapeCollector3.addFigure(square);
             shapeCollector3.addFigure(circle);
             //When
@@ -73,20 +73,15 @@ public class ShapeCollectorTestSuite {
         void  testShowFigures(){
             //Given
             ShapeCollector shapeCollector4 = new ShapeCollector();
-            Shape square = new Square("redSquare");
-            Shape circle = new Circle("bigCircle");
+            Shape square = new Square("redSquare", 2);
+            Shape circle = new Circle("bigCircle", 1);
             shapeCollector4.addFigure(square);
             shapeCollector4.addFigure(circle);
             //When
-            String retrievedShowFigures = "Square: redSquare, Circle: bigCircle";
+            String retrievedShowFigures = "Square: redSquare, field: 4; Circle: bigCircle, field: 3.14";
             String result = shapeCollector4.showFigures();
             //Then
             assertEquals(retrievedShowFigures, result);
         }
     }
-
-
-
-
-
 }
