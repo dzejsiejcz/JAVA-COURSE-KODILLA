@@ -9,19 +9,21 @@ public class ShapeCollector {
     private List<Shape> shapes = new ArrayList<>();
 
     public boolean addFigure(Shape shape) {
+        boolean result = false;
         if (shape != null) {
             shapes.add(shape);
-            return true;
+            result = true;
         }
-        return false;
+        return result;
     }
 
     public boolean removeFigure(Shape shape) {
+        boolean result = false;
         if (shapes.contains(shape)) {
             shapes.remove(shape);
-            return true;
+            result = true;
         }
-        return false;
+        return result;
     }
 
     public Shape getFigure(int shapeNumber) {
@@ -34,7 +36,7 @@ public class ShapeCollector {
     public String showFigures(){
         StringBuilder names = new StringBuilder(shapes.size());
         for (Shape shape : shapes) {
-            names.append(shape.getClass().getSimpleName()).append(": ").append(shape.getShapeName()).append(", ");
+            names.append(shape.getShapeName()).append(" ");
         }
         return names.toString();
     }

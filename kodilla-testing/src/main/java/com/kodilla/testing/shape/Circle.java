@@ -3,10 +3,10 @@ package com.kodilla.testing.shape;
 public class Circle implements Shape{
 
     private static final String NAME = "Circle";
-    private double dimmension;
+    private double radius;
 
-    public Circle(double dimmension) {
-        this.dimmension = dimmension;
+    public Circle(double radius) {
+        this.radius = radius;
     }
 
     @Override
@@ -16,6 +16,6 @@ public class Circle implements Shape{
 
     @Override
     public double getField() {
-        return dimmension*dimmension*Math.PI;
+        return radius*radius*Math.PI;
     }
 }

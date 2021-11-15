@@ -2,21 +2,20 @@ package com.kodilla.testing.shape;
 
 public class Square implements Shape {
 
-    private String name;
-    private double dimmension;
+    private static final String NAME = "Square";
+    private double dimension;
 
-    public Square(String name, double dimmension) {
-        this.name = name;
-        this.dimmension = dimmension;
+    public Square(double dimension) {
+        this.dimension = dimension;
     }
 
     @Override
     public String getShapeName() {
-        return name;
+        return NAME;
     }
 
     @Override
     public double getField() {
-        return dimmension*dimmension;
+        return dimension * dimension;
     }
 }
