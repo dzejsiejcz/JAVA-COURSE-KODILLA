@@ -40,4 +40,14 @@ class WeatherForecastTestSuite {
         //Then
         Assertions.assertEquals(5, quantityOfSensors);
     }
+
+    @Test
+    void testCalculateAverage() {
+
+    }
+
+    @Test
+    void testCalculateMedian() {
+
+    }
 }

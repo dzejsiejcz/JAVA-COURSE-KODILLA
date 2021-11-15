@@ -23,4 +23,12 @@ public class WeatherForecast {
         return resultMap;
     }
 
+    public double calculateAverage () {
+        return 0;
+    }
+
+    public double calculateMedian () {
+        return 0;
+    }
+
 }
