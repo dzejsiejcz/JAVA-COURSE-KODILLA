@@ -2,17 +2,16 @@ package com.kodilla.testing.shape;
 
 public class Circle implements Shape{
 
-    private String name;
+    private static final String NAME = "Circle";
     private double dimmension;
 
-    public Circle(String name, double dimmension) {
-        this.name = name;
+    public Circle(double dimmension) {
         this.dimmension = dimmension;
     }
 
     @Override
     public String getShapeName() {
-        return name;
+        return NAME;
     }
 
     @Override
