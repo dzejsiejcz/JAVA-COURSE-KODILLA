@@ -18,6 +18,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class StatisticsTestSuite {
 
+    private CalculateStatistics calculateStatistics = new CalculateStatistics();
+
     private static int testCounter = 0;
 
     @Mock
@@ -36,7 +38,6 @@ public class StatisticsTestSuite {
     @Test
     void testEmptyListOfPosts () {
         //Given
-        CalculateStatistics calculateStatistics = new CalculateStatistics(0,0,0,0,0,0);
         List<String> resultUserNames = generateListOfUsers(3);
         int resultPostQuantity = 0;
         int resultCommentsQuantity = 0;
@@ -59,7 +60,6 @@ public class StatisticsTestSuite {
     @Test
     void testListOf1000Posts () {
         //Given
-        CalculateStatistics calculateStatistics = new CalculateStatistics(0,0,0,0,0,0);
         List<String> resultUserNames = generateListOfUsers(3);
         int resultPostQuantity = 1000;
         int resultCommentsQuantity = 0;
@@ -83,7 +83,6 @@ public class StatisticsTestSuite {
     @Test
     void testEmptyListOfComments () {
         //Given
-        CalculateStatistics calculateStatistics = new CalculateStatistics(0,0,0,0,0,0);
         List<String> resultUserNames = generateListOfUsers(3);
         int resultPostQuantity = 10;
         int resultCommentsQuantity = 0;
@@ -106,7 +105,6 @@ public class StatisticsTestSuite {
     @Test
     void testPostsMoreThanComments () {
         //Given
-        CalculateStatistics calculateStatistics = new CalculateStatistics(0,0,0,0,0,0);
         List<String> resultUserNames = generateListOfUsers(3);
         int resultPostQuantity = 100;
         int resultCommentsQuantity = 50;
@@ -129,7 +127,6 @@ public class StatisticsTestSuite {
     @Test
     void testCommentsMoreThanPosts() {
         //Given
-        CalculateStatistics calculateStatistics = new CalculateStatistics(0,0,0,0,0,0);
         List<String> resultUserNames = generateListOfUsers(3);
         int resultPostQuantity = 100;
         int resultCommentsQuantity = 150;
@@ -152,7 +149,6 @@ public class StatisticsTestSuite {
     @Test
     void testEmptyListOfUsers () {
         //Given
-        CalculateStatistics calculateStatistics = new CalculateStatistics(0,0,0,0,0,0);
         List<String> resultUserNames = new ArrayList<>();
         int resultPostQuantity = 0;
         int resultCommentsQuantity = 0;
@@ -175,7 +171,6 @@ public class StatisticsTestSuite {
     @Test
     void testListOf100Users () {
         //Given
-        CalculateStatistics calculateStatistics = new CalculateStatistics(0,0,0,0,0,0);
         List<String> resultUserNames = generateListOfUsers(100);
         int resultPostQuantity = 100;
         int resultCommentsQuantity = 150;
