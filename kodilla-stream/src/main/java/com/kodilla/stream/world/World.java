@@ -1,14 +1,17 @@
 package com.kodilla.stream.world;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class World {
 
-    private final List<Continent> theListOfContinents;
+    private final List<Continent> theListOfContinents = new ArrayList<>();
 
-    public World(final List<Continent> theListOfContinents) {
-        this.theListOfContinents = theListOfContinents;
+    public World(){}
+
+    public void addContinents(Continent continent) {
+        theListOfContinents.add(continent);
     }
 
     public BigDecimal getPeopleQuantity() {
