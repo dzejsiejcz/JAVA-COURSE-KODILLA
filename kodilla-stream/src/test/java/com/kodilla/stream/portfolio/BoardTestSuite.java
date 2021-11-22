@@ -4,10 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
+import static java.time.Duration.between;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,13 +75,14 @@ class BoardTestSuite {
         //when
         List<TaskList> inProgressTasks = new ArrayList<>();
         inProgressTasks.add(new TaskList("In progress"));
-        double averageTime = project.getTaskLists().stream()
+        double averageDays = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
                 .map(Task::getCreated)
-                .map(d -> Duration.between(d, LocalDate.now()).toDays())
-                .average();
-        
+                .map(d -> Period.between(d, LocalDate.now()).getDays())
+                .collect(Collectors.averagingInt(d->d));
+        //then
+        assertEquals(10, averageDays);
     }
 
     private Board prepareTestData() {
@@ -96,7 +100,7 @@ class BoardTestSuite {
                 user2,
                 LocalDate.now().minusDays(20),
                 LocalDate.now().plusDays(30));
-        Task task2 = new Task("HQLs for analysis",
+        Task task2 = new Task("HQLs for analysis", ////
                 "Prepare some HQL queries for analysis",
                 user1,
                 user2,
@@ -108,13 +112,13 @@ class BoardTestSuite {
                 user2,
                 LocalDate.now().minusDays(20),
                 LocalDate.now().plusDays(15));
-        Task task4 = new Task("Own logger",
+        Task task4 = new Task("Own logger", ////////
                 "Refactor company logger to meet our needs",
                 user3,
                 user2,
                 LocalDate.now().minusDays(10),
                 LocalDate.now().plusDays(25));
-        Task task5 = new Task("Optimize searching",
+        Task task5 = new Task("Optimize searching", ////////
                 "Archive data searching has to be optimized",
                 user4,
                 user2,
