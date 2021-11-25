@@ -22,7 +22,7 @@ public class Messages {
     private String resultWinUser = "Wygrałeś tę rundę. 1 punkt dla Ciebie\n";
     private String resultWinCom = "Tę rundę wygrał przeciwnik. 1 punkt dla niego\n";
     private String resultTie = "Remis, każdy otrzymuje 1 punkt\n";
-    private String actualResult = "Wynik gry: \n";
+    private String actualResult = "Aktualny wynik: \n";
     private String nextRound = "Runda nr: ";
     private String endGame = "Koniec gry. Wygrał: ";
     private String draw = "Koniec gry. Mamy remis";
@@ -31,7 +31,7 @@ public class Messages {
     private String closeProgram = "Dziękuję za grę, do zobaczenia!";
     private String confidenceEnds = "Czy na pewno chcesz zakończyć grę? (t/n)";
     private String confidenceNewRound = "Czy na pewno chcesz zacząć grę od nowa? (t/n)";
-
+    private String resultOfGame = "Ostateczny wynik gry: \n";
     public String userMove(int userMove) {
         return this.userMove + User.chosenMove(userMove);
     }
@@ -121,5 +121,9 @@ public class Messages {
 
     public String getErrorFormat() {
         return errorFormat;
+    }
+
+    public String getResultOfGame() {
+        return resultOfGame;
     }
 }

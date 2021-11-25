@@ -31,7 +31,10 @@ public class Game {
         Round round = new Round(roundsCounter, user, comp1);
         sc.nextLine();
         Thread.sleep(2000);
-        //rounds
+        String choice;
+        String approval;
+
+        //processing rounds
         while (!end) {
 
             int counterRounds = roundsCounter.getFinishedRounds()+1;
@@ -39,12 +42,12 @@ public class Game {
             Thread.sleep(2000);
 
             System.out.println(m.getYourMove());
-            String choice = sc.nextLine();
+            choice = sc.nextLine();
 
             if (!(isNumeric(choice))) {
                 if (choice.equals("x")) {
                     System.out.println(m.getConfidenceEnds());
-                    String approval = sc.nextLine();
+                    approval = sc.nextLine();
                     if (approval.equals("t")) {
                         return -1;
                     } else {
@@ -52,7 +55,7 @@ public class Game {
                     }
                 } else if (choice.equals("n")) {
                     System.out.println(m.getConfidenceNewRound());
-                    String approval = sc.nextLine();
+                    approval = sc.nextLine();
                     if (approval.equals("t")) {
                         return 1;
                     } else {
@@ -69,6 +72,11 @@ public class Game {
             System.out.println(round.effect(userMove, comp1.randomMove()));
             end = roundsCounter.isFinishedGame();
             Thread.sleep(2000);
+            if (!end) {
+                System.out.println(m.getActualResult() + user.getName() + ": " + user.getPoints() +
+                        "\n" + comp1.getName() + ": " + comp1.getPoints() + "\n");
+                Thread.sleep(2000);
+            }
         }
         Thread.sleep(2000);
         if (user.getPoints() == comp1.getPoints()) {
@@ -79,9 +87,9 @@ public class Game {
             System.out.println(m.getEndGame() + comp1.getName());
         }
         Thread.sleep(2000);
-        System.out.println(m.getActualResult() + user.getName() + ": " + user.getPoints() + "\n" + comp1.getName() + ": " + comp1.getPoints());
+        System.out.println(m.getResultOfGame() + user.getName() + ": " + user.getPoints() +
+                "\n" + comp1.getName() + ": " + comp1.getPoints()+ "\n");
         Thread.sleep(3000);
-        sc.close();
         return 0;
     }
 
