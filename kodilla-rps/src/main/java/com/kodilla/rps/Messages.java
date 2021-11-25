@@ -26,7 +26,7 @@ public class Messages {
     private String nextRound = "Runda nr: ";
     private String endGame = "Koniec gry. Wygrał: ";
     private String draw = "Koniec gry. Mamy remis";
-    private String finishChoice = "Jeśli chcesz grać od nowa, naciśnij n'\n" +
+    private String finishChoice = "Jeśli chcesz grać od nowa, naciśnij n\n" +
             "Jeśli chcesz zakończyć, wciśnij x";
     private String closeProgram = "Dziękuję za grę, do zobaczenia!";
     private String confidenceEnds = "Czy na pewno chcesz zakończyć grę? (t/n)";
