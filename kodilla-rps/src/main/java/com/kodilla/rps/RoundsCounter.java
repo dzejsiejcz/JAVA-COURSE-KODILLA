@@ -1,10 +1,8 @@
 package com.kodilla.rps;
 
-import java.util.List;
-
 public class RoundsCounter {
 
-    private int numbOfRounds;
+    private final int numbOfRounds;
     private int finishedRounds = 0;
 
     public int getFinishedRounds() {

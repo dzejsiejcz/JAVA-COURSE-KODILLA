@@ -4,12 +4,11 @@ import java.util.Random;
 
 public class User {
 
-    private String name;
-    private int points = 0;
-    private boolean isWinner = false;
+    private final String name;
 
-    Messages m = new Messages();
-    Random rand = new Random();
+    private int points = 0;
+    private final Messages m = new Messages();
+    private final Random rand = new Random();
 
     public User(String name) {
         this.name = name;
@@ -19,24 +18,8 @@ public class User {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getPoints() {
         return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public boolean isWinner() {
-        return isWinner;
-    }
-
-    public void setWinner(boolean winner) {
-        isWinner = winner;
     }
 
     public void add1Point() {
@@ -48,18 +31,18 @@ public class User {
         int n = rand.nextInt(3) + 1;
         String output;
         if (n == 1) {
-            output = m.getRock();
-            System.out.println(m.getCompMove() + output);
+            output = m.getROCK();
+            System.out.println(m.getCOMP_MOVE() + output);
             Thread.sleep(2000);
             return 1;
         } else if (n == 2) {
-            output = m.getPaper();
-            System.out.println(m.getCompMove() + output);
+            output = m.getPAPER();
+            System.out.println(m.getCOMP_MOVE() + output);
             Thread.sleep(2000);
             return 2;
         } else if (n == 3) {
-            output = m.getScissors();
-            System.out.println(m.getCompMove() + output);
+            output = m.getSCISSORS();
+            System.out.println(m.getCOMP_MOVE() + output);
             Thread.sleep(2000);
             return 3;
         }
@@ -70,13 +53,13 @@ public class User {
         String output;
         Messages m = new Messages();
         if (choice == 1) {
-            output = m.getRock();
+            output = m.getROCK();
             return output;
         } else if (choice == 2) {
-            output = m.getPaper();
+            output = m.getPAPER();
             return output;
         } else if (choice == 3) {
-            output = m.getScissors();
+            output = m.getSCISSORS();
             return output;
         }
         output = "Niepoprawnie, powtórzymy tę rundę";

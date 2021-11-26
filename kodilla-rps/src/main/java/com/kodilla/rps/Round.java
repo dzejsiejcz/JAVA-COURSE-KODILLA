@@ -1,10 +1,10 @@
 package com.kodilla.rps;
 
 public class Round {
-    private Messages m = new Messages();
-    private RoundsCounter roundsCounter;
-    private User user;
-    private User comp;
+    private final Messages m = new Messages();
+    private final RoundsCounter roundsCounter;
+    private final User user;
+    private final User comp;
 
     public Round(RoundsCounter roundsCounter, User user, User comp) {
         this.roundsCounter = roundsCounter;
@@ -13,43 +13,46 @@ public class Round {
     }
 
     public String effect(int userMove, int compMove) {
-
         if (userMove == compMove) {
-            user.add1Point();
-            comp.add1Point();
-            roundsCounter.add1FinishedRounds();
-            return m.getResultTie();
+            bothWins();
         } else if (userMove == 1) {
             if (compMove == 2) {
-                comp.add1Point();
-                roundsCounter.add1FinishedRounds();
-                return m.getResultWinCom();
+                compWins();
             } else {
-                user.add1Point();
-                roundsCounter.add1FinishedRounds();
-                return m.getResultWinUser();
+                userWins();
             }
         } else if (userMove == 2) {
             if (compMove == 3) {
-                comp.add1Point();
-                roundsCounter.add1FinishedRounds();
-                return m.getResultWinCom();
+                compWins();
             } else {
-                user.add1Point();
-                roundsCounter.add1FinishedRounds();
-                return m.getResultWinUser();
+                userWins();
             }
         } else if (userMove == 3) {
             if (compMove == 1) {
-                comp.add1Point();
-                roundsCounter.add1FinishedRounds();
-                return m.getResultWinCom();
+                compWins();
             } else {
-                user.add1Point();
-                roundsCounter.add1FinishedRounds();
-                return m.getResultWinUser();
+                userWins();
             }
         }
-        return m.getReminder();
+        return m.getREMINDER();
+    }
+
+    private String userWins () {
+        user.add1Point();
+        roundsCounter.add1FinishedRounds();
+        return m.getRESULT_WIN_USER();
+    }
+
+    private String compWins () {
+        comp.add1Point();
+        roundsCounter.add1FinishedRounds();
+        return m.getRESULT_WIN_COMP();
+    }
+
+    private String bothWins () {
+        user.add1Point();
+        comp.add1Point();
+        roundsCounter.add1FinishedRounds();
+        return m.getRESULT_TIE();
     }
 }
