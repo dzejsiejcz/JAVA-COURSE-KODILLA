@@ -1,12 +1,13 @@
 package com.kodilla.rps;
 
-public class Round {
-    private final Messages m = new Messages();
+import static com.kodilla.rps.Messages.*;
+
+public class Winner {
     private final RoundsCounter roundsCounter;
     private final User user;
     private final User comp;
 
-    public Round(RoundsCounter roundsCounter, User user, User comp) {
+    public Winner(RoundsCounter roundsCounter, User user, User comp) {
         this.roundsCounter = roundsCounter;
         this.user = user;
         this.comp = comp;
@@ -14,45 +15,45 @@ public class Round {
 
     public String effect(int userMove, int compMove) {
         if (userMove == compMove) {
-            bothWins();
+            return bothWins();
         } else if (userMove == 1) {
             if (compMove == 2) {
-                compWins();
+                return compWins();
             } else {
-                userWins();
+                return userWins();
             }
         } else if (userMove == 2) {
             if (compMove == 3) {
-                compWins();
+                return compWins();
             } else {
-                userWins();
+                return userWins();
             }
         } else if (userMove == 3) {
             if (compMove == 1) {
-                compWins();
+                return compWins();
             } else {
-                userWins();
+                return userWins();
             }
         }
-        return m.getREMINDER();
+        return REMINDER;
     }
 
     private String userWins () {
         user.add1Point();
         roundsCounter.add1FinishedRounds();
-        return m.getRESULT_WIN_USER();
+        return RESULT_WIN_USER;
     }
 
     private String compWins () {
         comp.add1Point();
         roundsCounter.add1FinishedRounds();
-        return m.getRESULT_WIN_COMP();
+        return RESULT_WIN_COMP;
     }
 
     private String bothWins () {
         user.add1Point();
         comp.add1Point();
         roundsCounter.add1FinishedRounds();
-        return m.getRESULT_TIE();
+        return RESULT_TIE;
     }
 }
