@@ -1,32 +1,39 @@
 package com.kodilla.good.patterns.challenges.food2door.model;
 
-import com.kodilla.good.patterns.challenges.food2door.shops.Shop;
-
 public class Product {
 
     private String name;
-    private String description;
-    private Shop shop;
-    private String ean;
-    private String unit;
+    private ShopType shopType;
+
+    public Product(String name, ShopType shopType) {
+        this.name = name;
+        this.shopType = shopType;
+    }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public ShopType getShopType() {
+        return shopType;
     }
 
-    public Shop getShop() {
-        return shop;
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Product product = (Product) o;
+
+        if (name != null ? !name.equals(product.name) : product.name != null)
+            return false;
+        return shopType == product.shopType;
     }
 
-    public String getEan() {
-        return ean;
-    }
-
-    public String getUnit() {
-        return unit;
+    @Override public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (shopType != null ? shopType.hashCode() : 0);
+        return result;
     }
 }

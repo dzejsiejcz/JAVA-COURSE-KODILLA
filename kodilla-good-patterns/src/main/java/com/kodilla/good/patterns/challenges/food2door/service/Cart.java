@@ -1,38 +1,39 @@
 package com.kodilla.good.patterns.challenges.food2door.service;
 
-import com.kodilla.good.patterns.challenges.food2door.model.User;
-import com.kodilla.good.patterns.challenges.food2door.shops.Shop;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+
+import com.kodilla.good.patterns.challenges.food2door.model.User;
 
 public class Cart {
 
     private final User user;
-    private final Map<Shop, List<Choice>> listOfItems = new HashMap<>();
+    private final List<Choice> choices = new ArrayList<>();
 
     public Cart(User user) {
         this.user = user;
     }
 
-    public boolean addProduct(Shop shop, Choice choice) {
-        if (listOfItems.containsKey(shop)) {
-            listOfItems.get(shop).add(choice);
-            return true;
+    public void addChoice(Choice newChoice) {
+
+        Optional<Choice> existingChoiceOpt = this.choices.stream()
+                .filter(choice -> choice.getProduct().equals(newChoice.getProduct()))
+                .findAny();
+        if (existingChoiceOpt.isPresent()) {
+            Choice existingChoice = existingChoiceOpt.get();
+            existingChoice.setQuantity(existingChoice.getQuantity() + newChoice.getQuantity());
+        } else {
+            choices.add(newChoice);
         }
-        List<Choice> oneShopList = new ArrayList<>();
-        oneShopList.add(choice);
-        listOfItems.put(shop, oneShopList);
-        return false;
+    }
+
+    public List<Choice> getChoices() {
+        return choices;
     }
 
     public User getUser() {
         return user;
     }
 
-    public Map<Shop, List<Choice>> getListOfItems() {
-        return listOfItems;
-    }
 }

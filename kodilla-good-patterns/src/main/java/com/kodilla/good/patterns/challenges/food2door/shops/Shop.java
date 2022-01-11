@@ -12,9 +12,9 @@ import java.util.List;
 
 public abstract class Shop {
 
+    protected OrderService orderService = new OrderService();
     protected InformationService informationService;
     protected OrderRepository orderRepository;
-    protected OrderService orderService;
     protected Transport transport;
 
     public boolean process(User user, LocalDateTime time, List<Choice> oneShopOrder) {
