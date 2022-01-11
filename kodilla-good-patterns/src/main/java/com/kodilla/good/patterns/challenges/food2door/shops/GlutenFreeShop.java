@@ -10,6 +10,5 @@ public class GlutenFreeShop extends Shop{
     InformationService informationService = new MailService();
     OrderRepository orderRepository = new SqlRepository();
 
-    public GlutenFreeShop() {
-    }
+
 }

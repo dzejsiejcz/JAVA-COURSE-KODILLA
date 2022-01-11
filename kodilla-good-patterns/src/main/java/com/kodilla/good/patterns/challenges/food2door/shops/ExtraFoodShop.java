@@ -10,6 +10,4 @@ public class ExtraFoodShop extends Shop {
     InformationService informationService = new SmsService();
     OrderRepository orderRepository = new SqlRepository();
 
-    public ExtraFoodShop() {
-    }
 }

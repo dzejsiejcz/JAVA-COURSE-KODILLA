@@ -19,7 +19,7 @@ public class Purchase {
 
     public boolean sendOrder(){
         boolean response = true;
-        for ( Map.Entry<Shop, List<Choice>> entry : cart.getCart().entrySet() ) {
+        for ( Map.Entry<Shop, List<Choice>> entry : cart.getListOfItems().entrySet() ) {
             boolean result = entry.getKey().process(cart.getUser(), orderTime, entry.getValue());
             if (!result) {
                 response = false;

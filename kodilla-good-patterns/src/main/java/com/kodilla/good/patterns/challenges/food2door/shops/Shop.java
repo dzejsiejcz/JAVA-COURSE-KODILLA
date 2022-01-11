@@ -12,10 +12,10 @@ import java.util.List;
 
 public abstract class Shop {
 
-    InformationService informationService;
-    OrderRepository orderRepository;
-    OrderService orderService;
-    Transport transport;
+    protected InformationService informationService;
+    protected OrderRepository orderRepository;
+    protected OrderService orderService;
+    protected Transport transport;
 
     public boolean process(User user, LocalDateTime time, List<Choice> oneShopOrder) {
         boolean isOrdered = orderService.createOrder(user, time, oneShopOrder);

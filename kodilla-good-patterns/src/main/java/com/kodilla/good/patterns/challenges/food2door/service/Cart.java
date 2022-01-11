@@ -11,20 +11,20 @@ import java.util.Map;
 public class Cart {
 
     private final User user;
-    private final Map<Shop, List<Choice>> cart = new HashMap<>();
+    private final Map<Shop, List<Choice>> listOfItems = new HashMap<>();
 
     public Cart(User user) {
         this.user = user;
     }
 
     public boolean addProduct(Shop shop, Choice choice) {
-        if (cart.containsKey(shop)) {
-            cart.get(shop).add(choice);
+        if (listOfItems.containsKey(shop)) {
+            listOfItems.get(shop).add(choice);
             return true;
         }
         List<Choice> oneShopList = new ArrayList<>();
         oneShopList.add(choice);
-        cart.put(shop, oneShopList);
+        listOfItems.put(shop, oneShopList);
         return false;
     }
 
@@ -32,7 +32,7 @@ public class Cart {
         return user;
     }
 
-    public Map<Shop, List<Choice>> getCart() {
-        return cart;
+    public Map<Shop, List<Choice>> getListOfItems() {
+        return listOfItems;
     }
 }
