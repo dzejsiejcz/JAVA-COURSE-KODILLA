@@ -1,14 +1,23 @@
 package com.kodilla.good.patterns.challenges.food2door.shops;
 
-import com.kodilla.good.patterns.challenges.food2door.information.InformationService;
-import com.kodilla.good.patterns.challenges.food2door.information.MailService;
-import com.kodilla.good.patterns.challenges.food2door.repository.OrderRepository;
-import com.kodilla.good.patterns.challenges.food2door.repository.SqlRepository;
+import com.kodilla.good.patterns.challenges.food2door.information.SmsService;
+import com.kodilla.good.patterns.challenges.food2door.repository.ExcelRepository;
+import com.kodilla.good.patterns.challenges.food2door.transport.CarTransport;
 
-public class GlutenFreeShop extends Shop{
 
-    InformationService informationService = new MailService();
-    OrderRepository orderRepository = new SqlRepository();
+public class GlutenFreeShop extends Shop {
 
+    @Override
+    public void setFields() {
+        this.informationService = new SmsService();
+        this.orderRepository = new ExcelRepository();
+        this.transport = new CarTransport();
+    }
+
+    @Override
+    public String toString() {
+        return "GlutenFreeShop";
+    }
 
 }
+

@@ -1,7 +1,6 @@
 package com.kodilla.good.patterns.challenges.food2door.shops;
 
 import com.kodilla.good.patterns.challenges.food2door.service.Choice;
-import com.kodilla.good.patterns.challenges.food2door.service.OrderService;
 import com.kodilla.good.patterns.challenges.food2door.model.User;
 import com.kodilla.good.patterns.challenges.food2door.information.InformationService;
 import com.kodilla.good.patterns.challenges.food2door.repository.OrderRepository;
@@ -12,25 +11,32 @@ import java.util.List;
 
 public abstract class Shop {
 
-    protected InformationService informationService;
-    protected OrderRepository orderRepository;
-    protected OrderService orderService;
-    protected Transport transport;
+    InformationService informationService;
+    OrderRepository orderRepository;
+    Transport transport;
+
+    abstract public void setFields();
+    abstract public String toString();
+
 
     public boolean process(User user, LocalDateTime time, List<Choice> oneShopOrder) {
-        boolean isOrdered = orderService.createOrder(user, time, oneShopOrder);
 
-        if (isOrdered) {
             LocalDateTime deadline = time.plusDays(3L);
-            informationService.inform(user);
-            orderRepository.createOrderRepository(user, time, oneShopOrder);
-            transport.inform(user, oneShopOrder,deadline);
-            System.out.println("Successfully ordered. " + oneShopOrder);
-            return true;
-        } else {
-            System.out.println("Not ordered. " + oneShopOrder);
+            boolean info = informationService.inform(user);
+            boolean repo = orderRepository.createOrderRepository(user, time, oneShopOrder);
+            boolean delivery = transport.prepareTransport(user, oneShopOrder, this, deadline);
+
+            System.out.println("Successfully ordered. " + oneShopOrder + "\n");
+
+            if (info && repo && delivery) {
+                return true;
+            }
+
+            System.out.println("Order delivery failed. " + oneShopOrder + "\n");
             return false;
+
         }
+
     }
 
-}
+

@@ -10,6 +10,7 @@ public class ExcelRepository implements OrderRepository {
 
     @Override
     public boolean createOrderRepository(User user, LocalDateTime time, List<Choice> choiceList) {
-        return false;
+        System.out.println("The order for "  + user.getName() + " time " + time + " with: " + choiceList + " is written in Excel document \n");
+        return true;
     }
 }

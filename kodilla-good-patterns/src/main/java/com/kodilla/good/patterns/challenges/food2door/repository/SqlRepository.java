@@ -10,6 +10,9 @@ public class SqlRepository implements OrderRepository {
 
     @Override
     public boolean createOrderRepository(User user, LocalDateTime time, List<Choice> choiceList) {
-        return false;
+        System.out.println("The order for "  + user.getName() + " time " + time + " with: " + choiceList + " is written in SQLite3 \n");
+
+
+        return true;
     }
 }
