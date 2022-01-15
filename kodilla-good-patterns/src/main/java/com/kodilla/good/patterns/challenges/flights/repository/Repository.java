@@ -65,7 +65,10 @@ public class Repository {
         optionalFlight.ifPresent(flight -> System.out.println("Requested direct flight from: " + from + " to: " + to + " exists. \n" +
                 "Schedule time: " + flight.getDepartureTime()));
 
-        System.out.println("Requested direct flight from: " + from + " to: " + to + " does not exist \n");
+        if (optionalFlight.isEmpty()) {
+            System.out.println("Requested direct flight from: " + from + " to: " + to + " does not exist \n");
+        }
+
     }
 
     public void searchConnection(Airport from, Airport to) {

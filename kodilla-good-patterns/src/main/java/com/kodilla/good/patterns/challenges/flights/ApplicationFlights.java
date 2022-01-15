@@ -13,26 +13,26 @@ public class ApplicationFlights {
         Repository flights = flightsRetriever.retrieve();
 
 
-        System.out.println("\n Next request \n");
-        flights.getAirportArrivals(berlin);
+//        System.out.println("\n Next request \n");
+//        flights.getAirportArrivals(berlin);
+//
+//        System.out.println("\n Next request \n");
+//        flights.getAirportDepartures(gdansk);
+//
+//        System.out.println("\n Next request \n");
+//        flights.searchConnection(gdansk, paris);
+//
+//        System.out.println("\n Next request \n");
+//        flights.isDirectlyConnection(wroclaw, paris);
+//
+//        System.out.println("\n Next request \n");
+//        flights.isDirectlyConnection(paris, wroclaw);
+//
+//        System.out.println("\n Next request \n");
+//        flights.searchConnection(paris, wroclaw);
 
         System.out.println("\n Next request \n");
-        flights.getAirportDepartures(gdansk);
-
-        System.out.println("\n Next request \n");
-        flights.searchConnection(gdansk, paris);
-
-        System.out.println("\n Next request \n");
-        flights.isDirectlyConnection(wroclaw, paris);
-
-        System.out.println("\n Next request \n");
-        flights.isDirectlyConnection(paris, wroclaw);
-
-        System.out.println("\n Next request \n");
-        flights.searchConnection(paris, wroclaw);
-
-        System.out.println("\n Next request \n");
-        flights.searchConnection(wroclaw, warsaw);
+        flights.searchConnection(gdansk, wroclaw);
 
 
 
