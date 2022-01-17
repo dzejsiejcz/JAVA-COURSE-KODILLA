@@ -10,12 +10,8 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class ReaderConfig {
 
-    @Autowired
-    @Qualifier("book1")
-    Book book;
-
     @Bean
-    public Reader getReader() {
+    public Reader getReader(@Qualifier("book1")Book book) {
         return new Reader(book);
     }
 

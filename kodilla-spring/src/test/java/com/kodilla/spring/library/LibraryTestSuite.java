@@ -8,7 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.Arrays;
 
-//@SpringBootTest
+@SpringBootTest
 class LibraryTestSuite {
 
     @Autowired
