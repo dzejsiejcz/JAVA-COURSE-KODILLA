@@ -55,15 +55,6 @@ public class LibraryTestSuite {
         assertEquals(5, deepClonedLibrary.getBooks().size());
 
         assertEquals(library, shallowClonedLibrary);
-
         assertEquals(shallowClonedLibrary.getBooks(), library.getBooks());
-
-
-
-
-
-
-
     }
-
 }
