@@ -10,6 +10,9 @@ public class SudokuGame {
         while (!gameFinished) {
             SudokuGame theGame = new SudokuGame();
             gameFinished = theGame.resolveSudoku();
+            String print = new SudokuBoard().toString();
+            System.out.println(print);
+            gameFinished = true;
         }
     }
 
