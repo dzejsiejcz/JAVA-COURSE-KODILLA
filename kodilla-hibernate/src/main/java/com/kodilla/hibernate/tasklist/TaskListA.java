@@ -5,18 +5,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "TASKLISTS")
-public class TaskList {
+@Table(name = "TASKLISTSA")
+public class TaskListA {
 
 
     private  int id;
     private String listName;
     private String description;
 
-    public TaskList() {
+    public TaskListA() {
     }
 
-    public TaskList(String listName, String description) {
+    public TaskListA(String listName, String description) {
         this.listName = listName;
         this.description = description;
     }
