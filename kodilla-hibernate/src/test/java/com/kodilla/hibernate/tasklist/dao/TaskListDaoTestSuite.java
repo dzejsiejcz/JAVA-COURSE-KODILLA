@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TaskListDaoTestSuite {
 
     @Autowired
-    private  TaskListDao taskListDao;
+    private TaskListDao taskListDao;
     private static final String LIST_NAME = "Name of list";
     private static final String DESCRIPTION = "Test: Task about hibernate";
 
     @Test
-    void  testFindByListName() {
+    void testFindByListName() {
         //Given
         TaskList taskList = new TaskList(LIST_NAME, DESCRIPTION);
 
@@ -33,11 +33,6 @@ public class TaskListDaoTestSuite {
 
         //CleanUp
         taskListDao.deleteById(id);
-
-
-
-
-
     }
 
 }
