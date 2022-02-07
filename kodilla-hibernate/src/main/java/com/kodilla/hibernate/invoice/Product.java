@@ -21,7 +21,7 @@ public class Product {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "PRODUCT_ID", unique = true)
     public int getId() {
@@ -36,9 +36,7 @@ public class Product {
 
     @OneToMany(
             targetEntity = Item.class,
-            mappedBy = "product",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            mappedBy = "product"
     )
     public List<Item> getItems() {
         return items;
