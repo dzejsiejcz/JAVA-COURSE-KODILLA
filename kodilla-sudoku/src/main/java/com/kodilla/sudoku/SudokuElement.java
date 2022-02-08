@@ -10,8 +10,25 @@ public class SudokuElement {
     private int value = EMPTY;
     private List<Integer> possibleValues = new ArrayList<>();
 
-    public SudokuElement(int value, List<Integer> possibleValues) {
+    public SudokuElement() {
+        for (int i = 1; i<10; i++) {
+            possibleValues.add(i);
+        }
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
         this.value = value;
+    }
+
+    public List<Integer> getPossibleValues() {
+        return possibleValues;
+    }
+
+    public void setPossibleValues(List<Integer> possibleValues) {
         this.possibleValues = possibleValues;
     }
 }
