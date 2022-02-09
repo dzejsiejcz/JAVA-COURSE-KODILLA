@@ -8,7 +8,8 @@ import java.util.List;
 
 @NamedNativeQuery(
         name = "Company.retrieveCompanyWith3Letters",
-        query = "SELECT * FROM COMPANIES WHERE REGEXP_LIKE(SUBSTRING(COMPANY_NAME, 1, 3), :KEY)"
+        query = "SELECT * FROM COMPANIES WHERE REGEXP_LIKE(SUBSTRING(COMPANY_NAME, 1, 3), :KEY)",
+        resultClass = Company.class
 )
 @Entity
 @Table(name = "COMPANIES")

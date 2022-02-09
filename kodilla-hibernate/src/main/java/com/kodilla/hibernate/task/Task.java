@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@NamedQueries({
+@NamedQueries(value = {
         @NamedQuery(
                 name = "Task.retrieveLongTasks",
                 query = "FROM Task WHERE duration > 10"
