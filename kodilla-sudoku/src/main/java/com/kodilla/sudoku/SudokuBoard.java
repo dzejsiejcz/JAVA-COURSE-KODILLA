@@ -1,5 +1,7 @@
 package com.kodilla.sudoku;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class SudokuBoard {
         }
     }
 
-    public boolean fillBoard(String filling) {
+    public boolean fillBoard(@NotNull String filling) {
         // Creating array of string length
         char[] ch = new char[filling.length()];
         // Copy character by character into array
@@ -25,9 +27,9 @@ public class SudokuBoard {
         int value = Character.getNumericValue(ch[4]);
         System.out.println("Wybrałeś x= " + coordinateX + "y " + coordinateY + "wartość " + value);
 
-        listOfRows.get(coordinateY).getListOfElements().get(coordinateX).setValue(value);
+        listOfRows.get(coordinateY-1).getListOfElements().get(coordinateX-1).setValue(value);
 
-        return false;
+        return true;
     }
 
 
