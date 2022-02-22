@@ -11,21 +11,33 @@ public class SudokuGame {
         while (!gameFinished) {
             SudokuGame theGame = new SudokuGame();
             SudokuBoard sudokuBoard = new SudokuBoard();
-            gameFinished = theGame.resolveSudoku(sudokuBoard);
+            gameFinished = theGame.playSudoku(sudokuBoard);
         }
         sc.close();
     }
 
-    private boolean resolveSudoku(SudokuBoard sudokuBoard) {
+    private boolean playSudoku(SudokuBoard sudokuBoard) {
         System.out.println(sudokuBoard.toString());
         String filling = "";
-        while(!filling.equals("SUDOKU")) {
-            filling = "";
+         do {
+             filling = "";
             System.out.println("Wypełnij pola podając x,y,wartość lub wpisz SUDOKU, aby rozwiązać:\n");
             filling = sc.nextLine();
+            if (filling.equalsIgnoreCase("SUDOKU")){
+                break;
+            }
             if (sudokuBoard.fillBoard(filling)) {
                 System.out.println(sudokuBoard);
             }
+        }
+        while(!filling.equalsIgnoreCase("SUDOKU"));
+
+        boolean isSolved = sudokuBoard.solveSudoku();
+
+        if (isSolved) {
+            System.out.println(sudokuBoard);
+        } else {
+            System.out.println(false);
         }
 
         return true;
