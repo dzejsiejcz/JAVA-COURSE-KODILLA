@@ -20,7 +20,7 @@ public class SudokuGame {
         System.out.println(sudokuBoard.toString());
         String filling = "";
          do {
-             filling = "";
+
             System.out.println("Wypełnij pola podając x,y,wartość lub wpisz SUDOKU, aby rozwiązać:\n");
             filling = sc.nextLine();
             if (filling.equalsIgnoreCase("SUDOKU")){
@@ -30,7 +30,7 @@ public class SudokuGame {
                 System.out.println(sudokuBoard);
             }
         }
-        while(!filling.equalsIgnoreCase("SUDOKU"));
+        while(true);
 
         boolean isSolved = sudokuBoard.solveSudoku();
 

@@ -3,12 +3,14 @@ package com.kodilla.sudoku;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kodilla.sudoku.SudokuBoard.*;
+
 public class SudokuRow {
 
     private List<SudokuElement> listOfElements = new ArrayList<>();
 
     public SudokuRow() {
-        for (int i =0; i<9; i++){
+        for (int i = 0; i< DIMENSION_OF_TABLE; i++){
             listOfElements.add(new SudokuElement());
         }
     }
@@ -28,10 +30,8 @@ public class SudokuRow {
                 .findFirst()
                 .orElse(null);
 
-        if (possible!=null) {
-            return true;
-        }
-        return false;
+        return possible != null;
+
     }
 
     public boolean isInPossibleValuesInRow (final int requestedValue) {
@@ -41,10 +41,7 @@ public class SudokuRow {
                 .filter(element -> element==requestedValue)
                 .findAny().orElse(null);
 
-        if (possible!=null) {
-            return true;
-        }
-        return false;
+        return possible != null;
     }
 
 

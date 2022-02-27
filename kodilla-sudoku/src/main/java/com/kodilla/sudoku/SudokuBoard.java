@@ -7,10 +7,13 @@ import java.util.List;
 
 public class SudokuBoard {
 
+    public static final int DIMENSION_OF_TABLE = 9;
+    public static final int EMPTY_FIELD = -1;
     private List<SudokuRow> listOfRows = new ArrayList<>();
+    //public static final int DIMENSION_OF_TABLE = 9;
 
     public SudokuBoard() {
-        for (int i =0; i<9; i++){
+        for (int i = 0; i < DIMENSION_OF_TABLE; i++){
             listOfRows.add(new SudokuRow());
         }
     }
@@ -39,13 +42,13 @@ public class SudokuBoard {
         boolean isSolved = false;
         do {
             //checking every row
-            for (int row = 0; row < 9; row++) {
+            for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
                 SudokuRow sudokuRow = listOfRows.get(row);
-                for (int col = 0; col < 9; col++) {
+                for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
                     SudokuElement currentlyField = sudokuRow.getListOfElements().get(col);
                     int currentlyFieldValue = currentlyField.getValue();
                     List<Integer> possibleValues = currentlyField.getPossibleValues();
-                    if (currentlyFieldValue == -1) {
+                    if (currentlyFieldValue == EMPTY_FIELD) {
                         for (int possibleValue : possibleValues) {
                             if (sudokuRow.isInscribedInRow(possibleValue)) {
                                 possibleValues.remove(possibleValue);
@@ -60,7 +63,7 @@ public class SudokuBoard {
                                 isChanged = true;
                                 break;
                             }
-                            if (sudokuRow.isInscribedInRow(possibleValue) && possibleValues.size()==1) {
+                            if (sudokuRow.isInscribedInRow(possibleValue) && possibleValues.size() == 1) {
                                 return false;
                             }
                         }
@@ -70,12 +73,12 @@ public class SudokuBoard {
                 }
             }
             //checking every column
-            for (int col = 0; col < 9; col++) {
-                for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
+                for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
                     SudokuElement currentlyField = listOfRows.get(row).getListOfElements().get(col);
                     int currentlyFieldValue = currentlyField.getValue();
                     List<Integer> possibleValues = currentlyField.getPossibleValues();
-                    if (currentlyFieldValue == -1) {
+                    if (currentlyFieldValue == EMPTY_FIELD) {
                         for (int possibleValue : possibleValues) {
                             if (isInscribedInColumn(possibleValue, col)) {
                                 possibleValues.remove(possibleValue);
@@ -90,7 +93,7 @@ public class SudokuBoard {
                                 isChanged = true;
                                 break;
                             }
-                            if (isInscribedInColumn(possibleValue, col) && possibleValues.size()==1){
+                            if (isInscribedInColumn(possibleValue, col) && possibleValues.size() == 1){
                                 return false;
                             }
                         }
@@ -101,12 +104,12 @@ public class SudokuBoard {
             }
 
             //checking every section
-            for (int row = 0; row < 9; row++) {
-                for (int col = 0; col < 9; col++) {
+            for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
+                for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
                     SudokuElement currentlyField = listOfRows.get(row).getListOfElements().get(col);
                     int currentlyFieldValue = currentlyField.getValue();
                     List<Integer> possibleValues = currentlyField.getPossibleValues();
-                    if (currentlyFieldValue == -1) {
+                    if (currentlyFieldValue == EMPTY_FIELD) {
                         for (int possibleValue : possibleValues) {
                             if (isInscribedInSection(possibleValue, col, row)){
                                 possibleValues.remove(possibleValue);
@@ -140,7 +143,7 @@ public class SudokuBoard {
     }
 
     private boolean isInscribedInColumn(final int requestedValue, final int requestedColumn) {
-        for  (int row = 0; row < 9; row++) {
+        for  (int row = 0; row < DIMENSION_OF_TABLE; row++) {
             int checkingValue = listOfRows.get(row).getListOfElements().get(requestedColumn).getValue();
             if (checkingValue == requestedValue) {
                 return true;
@@ -150,15 +153,16 @@ public class SudokuBoard {
     }
 
     private boolean isInPossibleValuesInColumn (final int requestedValue, final int requestedColumn) {
-        for  (int row = 0; row < 9; row++) {
+        for  (int row = 0; row < DIMENSION_OF_TABLE; row++) {
             List<Integer> possibleValues = listOfRows.get(row).getListOfElements().get(requestedColumn).getPossibleValues();
             Integer possible = possibleValues.stream()
-                    .filter(integer -> integer==requestedValue)
+                    .filter(integer -> integer == requestedValue)
                     .findAny().orElse(null);
-            if (possible!= null) {
+            if (possible != null) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -205,16 +209,16 @@ public class SudokuBoard {
         String dash = "   -------------------------------------------------------\n";
         String upDash = "   _______________________________________________________\n";
         response = response + describCol;
-        for (int y=0; y<9; y++) {
+        for (int y = 0; y< DIMENSION_OF_TABLE; y++) {
             String row = "";
             if (y==3 || y==6 ) {
                 row = row + upDash;
             }
             row = row + dash + (y+1) + "  ";
             SudokuRow sudokuRow = listOfRows.get(y);
-            for (int x=0; x<9; x++) {
+            for (int x = 0; x< DIMENSION_OF_TABLE; x++) {
                 int value = sudokuRow.getListOfElements().get(x).getValue();
-                if (value==-1){
+                if (value== EMPTY_FIELD){
                     value = 0;
                 }
                 if (x==3 || x==6){
