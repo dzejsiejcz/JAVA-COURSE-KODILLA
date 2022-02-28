@@ -4,18 +4,29 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class SudokuBoard {
+import static com.kodilla.sudoku.Statics.DIMENSION_OF_TABLE;
+import static com.kodilla.sudoku.Statics.EMPTY_FIELD;
+import static com.kodilla.sudoku.SudokuGame.backtrack;
 
-    public static final int DIMENSION_OF_TABLE = 9;
-    public static final int EMPTY_FIELD = -1;
+public class SudokuBoard extends Prototype<SudokuBoard> {
+
+
     private List<SudokuRow> listOfRows = new ArrayList<>();
-    //public static final int DIMENSION_OF_TABLE = 9;
 
     public SudokuBoard() {
         for (int i = 0; i < DIMENSION_OF_TABLE; i++) {
             listOfRows.add(new SudokuRow());
         }
+    }
+
+    public SudokuBoard(boolean isCopy) {
+
+    }
+
+    public List<SudokuRow> getListOfRows() {
+        return listOfRows;
     }
 
     public boolean fillBoard(@NotNull String filling) {
@@ -37,10 +48,12 @@ public class SudokuBoard {
         return true;
     }
 
-    public boolean solveSudoku() {
+    public boolean solveSudoku() throws CloneNotSupportedException {
         boolean isChanged = false;
         boolean isSolved = false;
+
         do {
+            isChanged = false;
             //checking every row
             for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
                 SudokuRow sudokuRow = listOfRows.get(row);
@@ -50,6 +63,8 @@ public class SudokuBoard {
                     List<Integer> possibleValues = currentlyField.getPossibleValues();
                     if (currentlyFieldValue == EMPTY_FIELD) {
                         for (int possibleValue : possibleValues) {
+                            //jeśli ta cyfra jest wpisana w innym polu, usuwamy ją z tablicy możliwych cyfr,
+                            // i jeśli została tylko jedna możliwa cyfra, wpisujemy ją do aktualnego pola,
                             if (sudokuRow.isInscribedInRow(possibleValue)) {
                                 possibleValues.remove(possibleValue);
                                 if (possibleValues.size() == 1) {
@@ -58,17 +73,19 @@ public class SudokuBoard {
                                     break;
                                 }
                             }
+                            //nie występuje ani jako wpisana, ani jako możliwa cyfra w innym polu,
+                            // wpisujemy ją do aktualnego pola,
                             if (!sudokuRow.isInscribedInRow(possibleValue) && !sudokuRow.isInPossibleValuesInRow(possibleValue)) {
                                 currentlyField.setValue(possibleValue);
                                 isChanged = true;
                                 break;
                             }
+                            //jeśli ta cyfra jest wpisana w innym polu, ale jest też jedyną możliwością
+                            // w aktualnym polu, algorytm zwraca błąd
                             if (sudokuRow.isInscribedInRow(possibleValue) && possibleValues.size() == 1) {
                                 return false;
                             }
                         }
-                    } else {
-                        isSolved = true;
                     }
                 }
             }
@@ -97,8 +114,6 @@ public class SudokuBoard {
                                 return false;
                             }
                         }
-                    } else {
-                        isSolved = true;
                     }
                 }
             }
@@ -128,18 +143,49 @@ public class SudokuBoard {
                                 return false;
                             }
                         }
-                    } else {
-                        isSolved = true;
                     }
                 }
             }
-            if (isSolved){
-                return true;
+            if (!isChanged) {
+                guessField();
+            } else {
+                isSolved = checkSolved();
             }
         }
-        while (isChanged) ;
+        while (!isSolved) ;
 
-        return false;
+
+        return true;
+    }
+
+    private void guessField() throws CloneNotSupportedException {
+        Scanner sc = new Scanner(System.in);
+        for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
+            for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
+                SudokuElement currentlyField = listOfRows.get(row).getListOfElements().get(col);
+                if (currentlyField.getValue() == EMPTY_FIELD) {
+                    System.out.println("Aktualna tablica, podaj zgadywaną wartośc dla rzędu: " + row + " kolumny: " + col +"\n" +  this);
+                    int guessValue = sc.nextInt();
+                    SudokuBoard clonedSudokuBoard = this.deepCopy();
+                    SudokuGuessingElement sudokuGuessingElement = new SudokuGuessingElement(clonedSudokuBoard, col, row, guessValue);
+                    backtrack.add(sudokuGuessingElement);
+                    currentlyField.setValue(guessValue);
+                }
+            }
+        }
+
+    }
+
+    private boolean checkSolved() {
+        for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
+            for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
+                SudokuElement currentlyField = listOfRows.get(row).getListOfElements().get(col);
+                if (currentlyField.getValue() == EMPTY_FIELD) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private boolean isInscribedInColumn(final int requestedValue, final int requestedColumn) {
@@ -198,6 +244,22 @@ public class SudokuBoard {
         return false;
     }
 
+    public SudokuBoard deepCopy() throws CloneNotSupportedException {
+        SudokuBoard clonedBoard = super.clone();
+        clonedBoard.listOfRows = new ArrayList<>();
+        for (SudokuRow sudokuRow : listOfRows) {
+            SudokuRow clonedSudokuRow = new SudokuRow(true);
+            for (SudokuElement sudokuElement : sudokuRow.getListOfElements()) {
+                SudokuElement clonedSudokuElement = new SudokuElement(sudokuElement.getValue());
+                for (Integer possibleValue : sudokuElement.getPossibleValues()) {
+                    clonedSudokuElement.getPossibleValues().add(possibleValue);
+                }
+                clonedSudokuRow.getListOfElements().add(clonedSudokuElement);
+            }
+            clonedBoard.listOfRows.add(clonedSudokuRow);
+        }
+        return clonedBoard;
+    }
 
 
 

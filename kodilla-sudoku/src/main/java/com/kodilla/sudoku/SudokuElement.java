@@ -16,6 +16,10 @@ public class SudokuElement {
         }
     }
 
+    public SudokuElement(int value) {
+        this.value = value;
+    }
+
 
 
 

@@ -3,6 +3,7 @@ package com.kodilla.sudoku;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kodilla.sudoku.Statics.DIMENSION_OF_TABLE;
 import static com.kodilla.sudoku.SudokuBoard.*;
 
 public class SudokuRow {
@@ -13,6 +14,10 @@ public class SudokuRow {
         for (int i = 0; i< DIMENSION_OF_TABLE; i++){
             listOfElements.add(new SudokuElement());
         }
+    }
+
+    public SudokuRow(boolean isCopy) {
+
     }
 
     public List<SudokuElement> getListOfElements() {
