@@ -13,7 +13,7 @@ public class SudokuBoard {
     //public static final int DIMENSION_OF_TABLE = 9;
 
     public SudokuBoard() {
-        for (int i = 0; i < DIMENSION_OF_TABLE; i++){
+        for (int i = 0; i < DIMENSION_OF_TABLE; i++) {
             listOfRows.add(new SudokuRow());
         }
     }
@@ -206,8 +206,8 @@ public class SudokuBoard {
     public String toString() {
         String response = "                         SudokuBoard\n";
         String describCol = "      1     2     3      4     5     6      7     8     9\n";
-        String dash = "   -------------------------------------------------------\n";
-        String upDash = "   _______________________________________________________\n";
+        String dash = "   ---------------------------------------------------------\n";
+        String upDash = "   _________________________________________________________\n";
         response = response + describCol;
         for (int y = 0; y< DIMENSION_OF_TABLE; y++) {
             String row = "";
@@ -218,16 +218,21 @@ public class SudokuBoard {
             SudokuRow sudokuRow = listOfRows.get(y);
             for (int x = 0; x< DIMENSION_OF_TABLE; x++) {
                 int value = sudokuRow.getListOfElements().get(x).getValue();
-                if (value== EMPTY_FIELD){
-                    value = 0;
-                }
-                if (x==3 || x==6){
-                    row = row + "||  " + value + "  ";
+                if (value == EMPTY_FIELD){
+                    if (x==3 || x==6){
+                        row = row + "||  " + " " + "  ";
+                    } else {
+                        row = row + "|  " + " " + "  ";
+                    }
                 } else {
-                    row = row + "|  " + value + "  ";
+                    if (x==3 || x==6){
+                        row = row + "||  " + value + "  ";
+                    } else {
+                        row = row + "|  " + value + "  ";
+                    }
                 }
             }
-            row = row + "\n";
+            row = row + "|\n";
             response = response + row;
         }
         response = response + dash;
