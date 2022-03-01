@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import static com.kodilla.sudoku.Statics.DIMENSION_OF_TABLE;
 import static com.kodilla.sudoku.Statics.EMPTY_FIELD;
@@ -49,7 +50,7 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
     }
 
     public boolean solveSudoku() throws CloneNotSupportedException {
-        boolean isChanged = false;
+        boolean isChanged;
         boolean isSolved = false;
 
         do {
@@ -60,7 +61,7 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                 for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
                     SudokuElement currentlyField = sudokuRow.getListOfElements().get(col);
                     int currentlyFieldValue = currentlyField.getValue();
-                    List<Integer> possibleValues = currentlyField.getPossibleValues();
+                    Set<Integer> possibleValues = currentlyField.getPossibleValues();
                     if (currentlyFieldValue == EMPTY_FIELD) {
                         for (int possibleValue : possibleValues) {
                             //jeśli ta cyfra jest wpisana w innym polu, usuwamy ją z tablicy możliwych cyfr,
@@ -68,7 +69,7 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                             if (sudokuRow.isInscribedInRow(possibleValue)) {
                                 possibleValues.remove(possibleValue);
                                 if (possibleValues.size() == 1) {
-                                    currentlyField.setValue(possibleValues.get(0));
+                                    currentlyField.setValue(possibleValues.stream().findAny().get());
                                     isChanged = true;
                                     break;
                                 }
@@ -92,15 +93,16 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
             //checking every column
             for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
                 for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
-                    SudokuElement currentlyField = listOfRows.get(row).getListOfElements().get(col);
+                    SudokuElement currentlyField = getElement(col, row);
+
                     int currentlyFieldValue = currentlyField.getValue();
-                    List<Integer> possibleValues = currentlyField.getPossibleValues();
+                    Set<Integer> possibleValues = currentlyField.getPossibleValues();
                     if (currentlyFieldValue == EMPTY_FIELD) {
                         for (int possibleValue : possibleValues) {
                             if (isInscribedInColumn(possibleValue, col)) {
                                 possibleValues.remove(possibleValue);
                                 if (possibleValues.size() == 1) {
-                                    currentlyField.setValue(possibleValues.get(0));
+                                    currentlyField.setValue(possibleValues.stream().findAny().get());
                                     isChanged = true;
                                     break;
                                 }
@@ -123,13 +125,13 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                 for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
                     SudokuElement currentlyField = listOfRows.get(row).getListOfElements().get(col);
                     int currentlyFieldValue = currentlyField.getValue();
-                    List<Integer> possibleValues = currentlyField.getPossibleValues();
+                    Set<Integer> possibleValues = currentlyField.getPossibleValues();
                     if (currentlyFieldValue == EMPTY_FIELD) {
                         for (int possibleValue : possibleValues) {
                             if (isInscribedInSection(possibleValue, col, row)){
                                 possibleValues.remove(possibleValue);
                                 if (possibleValues.size() == 1) {
-                                    currentlyField.setValue(possibleValues.get(0));
+                                    currentlyField.setValue(possibleValues.stream().findAny().get());
                                     isChanged = true;
                                     break;
                                 }
@@ -162,7 +164,8 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
         Scanner sc = new Scanner(System.in);
         for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
             for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
-                SudokuElement currentlyField = listOfRows.get(row).getListOfElements().get(col);
+                SudokuElement currentlyField = getElement(col, row);
+
                 if (currentlyField.getValue() == EMPTY_FIELD) {
                     System.out.println("Aktualna tablica, podaj zgadywaną wartośc dla rzędu: " + row + " kolumny: " + col +"\n" +  this);
                     int guessValue = sc.nextInt();
@@ -200,11 +203,11 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
 
     private boolean isInPossibleValuesInColumn (final int requestedValue, final int requestedColumn) {
         for  (int row = 0; row < DIMENSION_OF_TABLE; row++) {
-            List<Integer> possibleValues = listOfRows.get(row).getListOfElements().get(requestedColumn).getPossibleValues();
-            Integer possible = possibleValues.stream()
-                    .filter(integer -> integer == requestedValue)
-                    .findAny().orElse(null);
-            if (possible != null) {
+            Set<Integer> possibleValues = listOfRows
+                    .get(row).getListOfElements()
+                    .get(requestedColumn)
+                    .getPossibleValues();
+            if(possibleValues.contains(requestedValue)){
                 return true;
             }
         }
@@ -232,7 +235,7 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
 
         for (int sectionRow = startRowInSection; sectionRow < startRowInSection + 3; sectionRow++) {
             for (int sectionCol = startColInSection; sectionCol < startColInSection + 3; sectionCol++) {
-                List<Integer> possibleValues = listOfRows.get(sectionRow).getListOfElements().get(sectionCol).getPossibleValues();
+                Set<Integer> possibleValues = listOfRows.get(sectionRow).getListOfElements().get(sectionCol).getPossibleValues();
                 Integer possible = possibleValues.stream()
                         .filter(integer -> integer == requestedValue)
                         .findAny().orElse(null);
@@ -299,5 +302,12 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
         }
         response = response + dash;
         return response;
+    }
+
+    private SudokuElement getElement(int col, int row){
+        return listOfRows
+                .get(row)
+                .getListOfElements()
+                .get(col);
     }
 }
