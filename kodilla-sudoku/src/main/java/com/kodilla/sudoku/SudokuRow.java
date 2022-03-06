@@ -3,8 +3,7 @@ package com.kodilla.sudoku;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.kodilla.sudoku.Statics.DIMENSION_OF_TABLE;
-import static com.kodilla.sudoku.SudokuBoard.*;
+import static com.kodilla.sudoku.Constants.DIMENSION_OF_TABLE;
 
 public class SudokuRow {
 

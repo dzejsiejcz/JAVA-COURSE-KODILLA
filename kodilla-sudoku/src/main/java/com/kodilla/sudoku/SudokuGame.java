@@ -1,6 +1,7 @@
 package com.kodilla.sudoku;
 
-import static com.kodilla.sudoku.Statics.SUDOKU;
+import static com.kodilla.sudoku.Constants.AUTO_FILL;
+import static com.kodilla.sudoku.Constants.SUDOKU;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,15 @@ public class SudokuGame {
     public static List<SudokuGuessingElement> backtrack = new ArrayList<>();
     private final static Scanner sc = new Scanner(System.in);
     private SudokuBoard sudokuBoard = new SudokuBoard();
+    PresetsForBoard presetsForBoard = new PresetsForBoard();
 
     public static void play() throws CloneNotSupportedException {
 
         boolean gameFinished = false;
         SudokuGame sudokuGame = new SudokuGame();
+
+
+
 
         while (!gameFinished) {
             gameFinished = sudokuGame.playSudoku();
@@ -24,6 +29,8 @@ public class SudokuGame {
     }
 
     private boolean playSudoku() throws CloneNotSupportedException {
+
+        sudokuBoard.automaticallyFillBoard(presetsForBoard);
         System.out.println(sudokuBoard.toString());
 
         playGame();
@@ -64,11 +71,12 @@ public class SudokuGame {
 
     private void playGame() {
         while(true) {
-            System.out.println("Wypełnij pola podając x,y,wartość lub wpisz SUDOKU, aby rozwiązać:\n");
+            System.out.println("Wypełnij pola podając x,y,wartość lub wpisz SU, aby rozwiązać:\n");
             String filling = sc.nextLine();
             if (filling.equalsIgnoreCase(SUDOKU)) {
                 break;
             }
+
             if (sudokuBoard.fillBoard(filling)) {
                 System.out.println(sudokuBoard);
             }
