@@ -2,10 +2,7 @@ package com.kodilla.sudoku;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import static com.kodilla.sudoku.Constants.DIMENSION_OF_TABLE;
 import static com.kodilla.sudoku.Constants.EMPTY_FIELD;
@@ -43,7 +40,7 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
             System.out.println("Błędny wpis");
             return false;
         }
-        System.out.println("Wybrałeś x= " + coordinateX + "y " + coordinateY + "wartość " + value);
+        System.out.println("Wybrałeś x= " + coordinateX + ", y= " + coordinateY + ", wartość= " + value);
 
         listOfRows.get(coordinateY-1).getListOfElements().get(coordinateX-1).setValue(value);
 
@@ -79,20 +76,26 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                         boolean isPossibleValueRemoved;
                         do {
                             isPossibleValueRemoved = false;
+//                            Iterator<Integer> iterator = possibleValues.iterator();
+//                            while (iterator.hasNext()) {
+//                                iterator.next()
+//                            }
                             for (int possibleValue : possibleValues) {
                                 //System.out.println(possibleValue);
                                 //jeśli ta cyfra jest wpisana w innym polu, usuwamy ją z tablicy możliwych cyfr,
                                 // i jeśli została tylko jedna możliwa cyfra, wpisujemy ją do aktualnego pola,
                                 if (sudokuRow.isInscribedInRow(possibleValue)) {
                                     possibleValues.remove(possibleValue);
-                                    if (possibleValues.size() == 1) {
-                                        currentlyField.setValue(possibleValues.stream().findAny().get());
-                                        isChanged = true;
-                                        break;
-                                    }
                                     isPossibleValueRemoved = true;
+                                    if (possibleValues.size() == 1) {
+                                        int lastPossibleValue = possibleValues.stream().findAny().get();
+                                        if (!sudokuRow.isInscribedInRow(lastPossibleValue)){
+                                            currentlyField.setValue(lastPossibleValue);
+                                            isChanged = true;
+                                            break;
+                                        }
+                                    }
                                     break;
-
                                 }
                                 //nie występuje ani jako wpisana, ani jako możliwa cyfra w innym polu,
                                 // wpisujemy ją do aktualnego pola,
@@ -107,6 +110,8 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                                     return false;
                                 }
                             }
+                            System.out.println("checking every row");
+                            System.out.println(this);
                         } while (isPossibleValueRemoved);
                     }
                 }
@@ -126,12 +131,16 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
 
                                 if (isInscribedInColumn(possibleValue, col)) {
                                     possibleValues.remove(possibleValue);
-                                    if (possibleValues.size() == 1) {
-                                        currentlyField.setValue(possibleValues.stream().findAny().get());
-                                        isChanged = true;
-                                        break;
-                                    }
                                     isPossibleValueRemoved = true;
+                                    if (possibleValues.size() == 1) {
+                                        int lastPossibleValue = possibleValues.stream().findAny().get();
+                                        if (!isInscribedInColumn(lastPossibleValue, col)){
+                                            currentlyField.setValue(lastPossibleValue);
+                                            isChanged = true;
+                                            break;
+                                        }
+                                    }
+
                                     break;
                                 }
                                 if (!isInPossibleValuesInColumn(possibleValue, col)) {
@@ -143,6 +152,8 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                                     return false;
                                 }
                             }
+                            System.out.println("checking every column");
+                            System.out.println(this);
                         } while (isPossibleValueRemoved);
                     }
                 }
@@ -161,12 +172,16 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                             for (int possibleValue : possibleValues) {
                                 if (isInscribedInSection(possibleValue, col, row)) {
                                     possibleValues.remove(possibleValue);
-                                    if (possibleValues.size() == 1) {
-                                        currentlyField.setValue(possibleValues.stream().findAny().get());
-                                        isChanged = true;
-                                        break;
-                                    }
                                     isPossibleValueRemoved = true;
+                                    if (possibleValues.size() == 1) {
+                                        int lastPossibleValue = possibleValues.stream().findAny().get();
+                                        if (!isInscribedInSection(lastPossibleValue, col, row)) {
+                                            currentlyField.setValue(lastPossibleValue);
+                                            isChanged = true;
+                                            break;
+                                        }
+                                    }
+
                                     break;
                                 }
                                 if (!isInPossibleValuesInSection(possibleValue, col, row)) {
@@ -178,6 +193,8 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                                     return false;
                                 }
                             }
+                            System.out.println("checking every section");
+                            System.out.println(this);
                         } while (isPossibleValueRemoved);
                     }
                 }
@@ -200,7 +217,7 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                 SudokuElement currentlyField = getElement(col, row);
 
                 if (currentlyField.getValue() == EMPTY_FIELD) {
-                    System.out.println("Aktualna tablica, podaj zgadywaną wartośc dla rzędu: " + row + " kolumny: " + col +"\n" +  this);
+                    System.out.println("Aktualna tablica, podaj zgadywaną wartośc dla rzędu: " + (row+1)  + " kolumny: " + (col+1) +"\n" +  this);
                     int guessValue = sc.nextInt();
                     SudokuBoard clonedSudokuBoard = this.deepCopy();
                     SudokuGuessingElement sudokuGuessingElement = new SudokuGuessingElement(clonedSudokuBoard, col, row, guessValue);
