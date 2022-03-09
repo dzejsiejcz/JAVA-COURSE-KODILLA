@@ -34,7 +34,9 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
             ch[i] = filling2.charAt(i);
         }
         int coordinateX = Character.getNumericValue(ch[0]);
+        int col = coordinateX - 1;
         int coordinateY = Character.getNumericValue(ch[1]);
+        int row = coordinateY - 1;
         int value = Character.getNumericValue(ch[2]);
         if (value == 0) {
             System.out.println("Błędny wpis");
@@ -42,12 +44,29 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
         }
         System.out.println("Wybrałeś x= " + coordinateX + ", y= " + coordinateY + ", wartość= " + value);
 
-        listOfRows.get(coordinateY-1).getListOfElements().get(coordinateX-1).setValue(value);
+        if (checkPossibilityOfFilling(value, col, row, false)) {
+            getElement(col, row).setValue(value);
+        } else {
+            return false;
+        }
+
+
 
         return true;
     }
 
-    public void automaticallyFillBoard(PresetsForBoard presetsForBoard) {
+    public boolean checkPossibilityOfFilling(int value, int col, int row, boolean isRandom) {
+        if (!listOfRows.get(row).isInscribedInRow(value) && !isInscribedInColumn(value, col) && !isInscribedInSection(value, col, row)) {
+            return true;
+        }
+        if (!isRandom) {
+            System.out.println("Nie można wpisać wartości " + value + " w polu: x= " + (col+1) + ", y= " + (row+1)
+                    + "\n Podaj inną wartość");
+        }
+        return false;
+    }
+
+    public void automaticallyFillBoardFromPreset(PresetsForBoard presetsForBoard) {
         int valueFromPresetTable;
         for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
             for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
@@ -55,6 +74,22 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                 if (valueFromPresetTable != 0) {
                     getElement(col, row).setValue(valueFromPresetTable);
                 }
+            }
+        }
+    }
+
+    public void randomFillBoard() {
+        Random random = new Random();
+        int val;
+        int col;
+        int row;
+        for (int i = 0; i<80; i++) {
+            val = random.nextInt(9) + 1;
+            col = random.nextInt(9);
+            row = random.nextInt(9);
+            SudokuElement sudokuElement = getElement(col, row);
+            if (sudokuElement.getValue() == EMPTY_FIELD && checkPossibilityOfFilling(val, col, row, true)) {
+                sudokuElement.setValue(val);
             }
         }
     }
@@ -92,7 +127,8 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                                         if (!sudokuRow.isInscribedInRow(lastPossibleValue)){
                                             currentlyField.setValue(lastPossibleValue);
                                             isChanged = true;
-                                            break;
+                                        }else {
+                                            return false;
                                         }
                                     }
                                     break;
@@ -137,10 +173,10 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                                         if (!isInscribedInColumn(lastPossibleValue, col)){
                                             currentlyField.setValue(lastPossibleValue);
                                             isChanged = true;
-                                            break;
+                                        }else {
+                                            return false;
                                         }
                                     }
-
                                     break;
                                 }
                                 if (!isInPossibleValuesInColumn(possibleValue, col)) {
@@ -178,8 +214,10 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
                                         if (!isInscribedInSection(lastPossibleValue, col, row)) {
                                             currentlyField.setValue(lastPossibleValue);
                                             isChanged = true;
-                                            break;
+                                        } else {
+                                            return false;
                                         }
+
                                     }
 
                                     break;
@@ -215,14 +253,18 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
         for (int row = 0; row < DIMENSION_OF_TABLE; row++) {
             for (int col = 0; col < DIMENSION_OF_TABLE; col++) {
                 SudokuElement currentlyField = getElement(col, row);
-
+                int guessValue;
                 if (currentlyField.getValue() == EMPTY_FIELD) {
-                    System.out.println("Aktualna tablica, podaj zgadywaną wartośc dla rzędu: " + (row+1)  + " kolumny: " + (col+1) +"\n" +  this);
-                    int guessValue = sc.nextInt();
+                    do {
+                        System.out.println("Aktualna tablica wymaga Twojej pomocy, \n " +
+                                "podaj zgadywaną wartośc dla kolumny: " + (col+1) + " rzędu: " + (row+1) + "\n" +  this);
+                        guessValue = sc.nextInt();
+                    } while (!checkPossibilityOfFilling(guessValue, col, row, false));
                     SudokuBoard clonedSudokuBoard = this.deepCopy();
                     SudokuGuessingElement sudokuGuessingElement = new SudokuGuessingElement(clonedSudokuBoard, col, row, guessValue);
                     backtrack.add(sudokuGuessingElement);
                     currentlyField.setValue(guessValue);
+                    break;
                 }
             }
         }

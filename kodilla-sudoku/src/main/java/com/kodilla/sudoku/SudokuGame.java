@@ -1,6 +1,5 @@
 package com.kodilla.sudoku;
 
-import static com.kodilla.sudoku.Constants.AUTO_FILL;
 import static com.kodilla.sudoku.Constants.SUDOKU;
 
 import java.util.ArrayList;
@@ -30,10 +29,11 @@ public class SudokuGame {
 
     private boolean playSudoku() throws CloneNotSupportedException {
 
-        sudokuBoard.automaticallyFillBoard(presetsForBoard);
+        //sudokuBoard.automaticallyFillBoardFromPreset(presetsForBoard);
+        sudokuBoard.randomFillBoard();
         System.out.println(sudokuBoard.toString());
 
-        playGame();
+        handFill();
 
         boolean isSolved;
 
@@ -69,7 +69,7 @@ public class SudokuGame {
                 .getPossibleValues().remove(val);
     }
 
-    private void playGame() {
+    private void handFill() {
         while(true) {
             System.out.println("Wypełnij pola podając x,y,wartość lub wpisz SU, aby rozwiązać:\n");
             String filling = sc.nextLine();
