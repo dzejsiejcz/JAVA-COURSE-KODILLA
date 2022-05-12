@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StoredProcTestSuite {
     @Test
@@ -33,4 +34,27 @@ public class StoredProcTestSuite {
         statement.close();
     }
 
+    @Test
+    public void testUpdateBestsellers() throws SQLException {
+        //Given
+        DbManager dbManager = DbManager.getInstance();
+        String sqlUpdateStart = "UPDATE BOOKS SET BESTSELLER=0";
+        Statement statement = dbManager.getConnection().createStatement();
+        statement.execute(sqlUpdateStart);
+
+        //When
+        String sqlProcedureCall = "CALL UpdateBestsellers()";
+        String sqlCheckTable = "SELECT BESTSELLER AS IS_A_BESTSELLER FROM BOOKS WHERE BOOK_ID=5";
+        statement.execute(sqlProcedureCall);
+        ResultSet resultSet = statement.executeQuery(sqlCheckTable);
+
+        //Then
+        boolean is_best = false;
+        if (resultSet.next()) {
+            is_best = resultSet.getBoolean("IS_A_BESTSELLER");
+        }
+        assertTrue(is_best);
+        resultSet.close();
+        statement.close();
+    }
 }
