@@ -19,7 +19,7 @@ public class CrudAppTestSuite {
     private Random generator;
 
     @BeforeEach
-    public void initTests(){
+    public void initTests() {
         driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
         driver.get(BASE_URL);
         generator = new Random();
@@ -35,7 +35,7 @@ public class CrudAppTestSuite {
         final String XPATH_TASK_CONTENT = "//form[contains(@action,\"createTask\")]/fieldset[2]/textarea";
         final String XPATH_ADD_BUTTON = "//form[contains(@action,\"createTask\")]/fieldset[3]/button";
 
-        String taskName = "Task number " + generator.nextInt(100000);            
+        String taskName = "Task number " + generator.nextInt(100000);
         String taskContent = taskName + " content";
 
         WebElement name = driver.findElement(By.xpath(XPATH_TASK_NAME));
@@ -53,7 +53,7 @@ public class CrudAppTestSuite {
     private void sendTestTaskToTrello(String taskName) throws InterruptedException {
         driver.navigate().refresh();
 
-        while(!driver.findElement(By.xpath("//select[1]")).isDisplayed());
+        while (!driver.findElement(By.xpath("//select[1]")).isDisplayed()) ;
 
         driver.findElements(
                         By.xpath("//form[@class=\"datatable__row\"]")).stream()
@@ -108,7 +108,7 @@ public class CrudAppTestSuite {
 
     @Test
     public void shouldCreateTrelloCard() throws InterruptedException {
-        String taskName= createCrudAppTestTask();
+        String taskName = createCrudAppTestTask();
         sendTestTaskToTrello(taskName);
         assertTrue(checkTaskExistInTrello(taskName));
     }
